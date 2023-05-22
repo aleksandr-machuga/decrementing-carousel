@@ -1,24 +1,37 @@
 package com.epam.rd.autotasks;
 
 public class CarouselRun {
-    protected final int[] array = DecrementingCarousel.carousel.clone();
-    protected int position = 0;
+    private int[] elements;
+    private int index;
+
+    public CarouselRun(int[] elements) {
+        this.elements = elements;
+    }
 
     public int next() {
-        if (isFinished())
+        if (isFinished()){
             return -1;
-        else {
-            while (array[position %= array.length] <= 0) {
-                position++;
-            }
         }
-        return array[position++]--;
+        if (index==elements.length){
+            index=0;
+        }
+        int element=elements[index];
+        while (element==0){
+            index++;
+            if (index==elements.length){
+                index=0;
+            }
+            element=elements[index];
+        }
+        return elements[index++]--;
     }
 
     public boolean isFinished() {
-        for (int el : array)
-            if (el > 0)
+        for (int element : elements) {
+            if (element > 0) {
                 return false;
+            }
+        }
         return true;
     }
 }
